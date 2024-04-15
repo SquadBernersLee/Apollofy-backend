@@ -6,9 +6,97 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/postgre_client"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Track {
+  id        Int    @id @default(autoincrement())
+  name      String
+  artist    String
+  url       String
+  albumId   String
+  thumbnail String
+  genreId   String
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  email          String    @unique
+  password       String
+  city           String
+  gender         String
+  profilePicture String?   @unique
+  country        String
+  dateOfBirth    DateTime?
+}
+
+model Playlist {
+  id           Int    @id @default(autoincrement())
+  name         String
+  imageUrl     String
+  description  String
+  primaryColor String
+}
+
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Artists {
+  id         Int    @id @default(autoincrement())
+  name       String
+  genreId    String
+  popularity Float
+  photoUrl   String
+  albumId    String
+}
+
+model Album {
+  id       Int    @id @default(autoincrement())
+  name     String
+  imageUrl String
+}
+
+model AlbumArtist {
+  id        Int @id @default(autoincrement())
+  artistsId Int
+  albumId   Int
+}
+
+model PlaylistTracks {
+  id         Int @id @default(autoincrement())
+  trackId    Int
+  playlistId Int
+}
+
+model LikedTracks {
+  id      Int @id @default(autoincrement())
+  trackId Int
+  UserId  Int
+}
+
+model FollowPlaylist {
+  id         Int @id @default(autoincrement())
+  PlaylistId Int
+  UserId     Int
+}
+
+model LikedAlbums {
+  id      Int @id @default(autoincrement())
+  AlbumId Int
+  UserId  Int
+}
+
+model Followers {
+  id             Int @id @default(autoincrement())
+  followerId     Int
+  followedUserId Int
 }
