@@ -5,6 +5,7 @@ type Tconfig = {
 };
 
 type Environmentconfig = {
+  auth0: any;
   app: Appconfig;
 };
 
@@ -25,11 +26,21 @@ const CONFIG: Tconfig = {
     app: {
       PORT: process.env.PORT || 4001,
     },
+    auth0: {
+        client_origin: process.env.CLIENT_ORIGIN,
+        audience: process.env.AUTH0_AUDIENCE,
+        issuer: process.env.AUTH0_ISSUER
+    }
   },
   production: {
     app: {
       PORT: process.env.PORT || 8081,
     },
+    auth0: {
+        client_origin: process.env.CLIENT_ORIGIN,
+        audience: process.env.AUTH0_AUDIENCE,
+        issuer: process.env.AUTH0_ISSUER
+    }
   },
 };
 
