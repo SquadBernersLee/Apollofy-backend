@@ -216,7 +216,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\alvar\\alv-pro\\Apollofy\\Apollofy-backend\\prisma\\generated\\postgre_client",
+      "value": "C:\\Users\\lucia\\Desktop\\workspace\\Apollofy-back-end\\Apollofy-backend\\prisma\\generated\\postgre_client",
       "fromEnvVar": null
     },
     "config": {
