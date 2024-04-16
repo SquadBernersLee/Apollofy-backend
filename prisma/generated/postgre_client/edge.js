@@ -215,7 +215,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\alvar\\alv-pro\\Apollofy\\Apollofy-backend\\prisma\\generated\\postgre_client",
+      "value": "C:\\Users\\lucia\\Desktop\\workspace\\Apollofy-back-end\\Apollofy-backend\\prisma\\generated\\postgre_client",
       "fromEnvVar": null
     },
     "config": {
@@ -232,7 +232,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
@@ -242,7 +242,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -251,8 +251,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/postgre_client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Track {\n  id        Int    @id @default(autoincrement())\n  name      String\n  artist    String\n  url       String\n  albumId   String\n  thumbnail String\n  genreId   String\n}\n\nmodel User {\n  id             Int       @id @default(autoincrement())\n  first_name     String\n  last_name      String\n  email          String    @unique\n  password       String\n  city           String\n  gender         String\n  profilePicture String?   @unique\n  country        String\n  dateOfBirth    DateTime?\n}\n\nmodel Playlist {\n  id           Int    @id @default(autoincrement())\n  name         String\n  imageUrl     String\n  description  String\n  primaryColor String\n}\n\nmodel Genre {\n  id   Int    @id @default(autoincrement())\n  name String\n}\n\nmodel Artists {\n  id         Int    @id @default(autoincrement())\n  name       String\n  genreId    String\n  popularity Float\n  photoUrl   String\n  albumId    String\n}\n\nmodel Album {\n  id       Int    @id @default(autoincrement())\n  name     String\n  imageUrl String\n}\n\nmodel AlbumArtist {\n  id        Int @id @default(autoincrement())\n  artistsId Int\n  albumId   Int\n}\n\nmodel PlaylistTracks {\n  id         Int @id @default(autoincrement())\n  trackId    Int\n  playlistId Int\n}\n\nmodel LikedTracks {\n  id      Int @id @default(autoincrement())\n  trackId Int\n  UserId  Int\n}\n\nmodel FollowPlaylist {\n  id         Int @id @default(autoincrement())\n  PlaylistId Int\n  UserId     Int\n}\n\nmodel LikedAlbums {\n  id      Int @id @default(autoincrement())\n  AlbumId Int\n  UserId  Int\n}\n\nmodel Followers {\n  id             Int @id @default(autoincrement())\n  followerId     Int\n  followedUserId Int\n}\n",
-  "inlineSchemaHash": "0bb0d9fb81074b997e05fb7f5b7e2ce3372de0cf0bc0d46733744c1dd4e1e2a1",
+  "inlineSchema": "// This is your Prisma schema file,\r\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\r\n\r\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\r\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\r\n\r\ngenerator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/postgre_client\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url      = env(\"DATABASE_URL\")\r\n}\r\n\r\nmodel Track {\r\n  id        Int    @id @default(autoincrement())\r\n  name      String\r\n  artist    String\r\n  url       String\r\n  albumId   String\r\n  thumbnail String\r\n  genreId   String\r\n}\r\n\r\nmodel User {\r\n  id             Int       @id @default(autoincrement())\r\n  first_name     String\r\n  last_name      String\r\n  email          String    @unique\r\n  password       String\r\n  city           String\r\n  gender         String\r\n  profilePicture String?   @unique\r\n  country        String\r\n  dateOfBirth    DateTime?\r\n}\r\n\r\nmodel Playlist {\r\n  id           Int    @id @default(autoincrement())\r\n  name         String\r\n  imageUrl     String\r\n  description  String\r\n  primaryColor String\r\n}\r\n\r\nmodel Genre {\r\n  id   Int    @id @default(autoincrement())\r\n  name String\r\n}\r\n\r\nmodel Artists {\r\n  id         Int    @id @default(autoincrement())\r\n  name       String\r\n  genreId    String\r\n  popularity Float\r\n  photoUrl   String\r\n  albumId    String\r\n}\r\n\r\nmodel Album {\r\n  id       Int    @id @default(autoincrement())\r\n  name     String\r\n  imageUrl String\r\n}\r\n\r\nmodel AlbumArtist {\r\n  id        Int @id @default(autoincrement())\r\n  artistsId Int\r\n  albumId   Int\r\n}\r\n\r\nmodel PlaylistTracks {\r\n  id         Int @id @default(autoincrement())\r\n  trackId    Int\r\n  playlistId Int\r\n}\r\n\r\nmodel LikedTracks {\r\n  id      Int @id @default(autoincrement())\r\n  trackId Int\r\n  UserId  Int\r\n}\r\n\r\nmodel FollowPlaylist {\r\n  id         Int @id @default(autoincrement())\r\n  PlaylistId Int\r\n  UserId     Int\r\n}\r\n\r\nmodel LikedAlbums {\r\n  id      Int @id @default(autoincrement())\r\n  AlbumId Int\r\n  UserId  Int\r\n}\r\n\r\nmodel Followers {\r\n  id             Int @id @default(autoincrement())\r\n  followerId     Int\r\n  followedUserId Int\r\n}\r\n",
+  "inlineSchemaHash": "dace859d6bfba4cb58b341d4dff96017612c418c1244fb321ba7e36f74005646",
   "copyEngine": true
 }
 config.dirname = '/'
