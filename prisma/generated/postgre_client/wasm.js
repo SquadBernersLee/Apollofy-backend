@@ -124,13 +124,14 @@ exports.Prisma.TrackScalarFieldEnum = {
   name: 'name',
   artist: 'artist',
   url: 'url',
+  genreId: 'genreId',
   albumId: 'albumId',
-  thumbnail: 'thumbnail',
-  genreId: 'genreId'
+  thumbnail: 'thumbnail'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  rolId: 'rolId',
   first_name: 'first_name',
   last_name: 'last_name',
   email: 'email',
@@ -139,7 +140,14 @@ exports.Prisma.UserScalarFieldEnum = {
   gender: 'gender',
   profilePicture: 'profilePicture',
   country: 'country',
-  dateOfBirth: 'dateOfBirth'
+  dateOfBirth: 'dateOfBirth',
+  genreId: 'genreId',
+  popularity: 'popularity'
+};
+
+exports.Prisma.RolesScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
@@ -147,21 +155,13 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   name: 'name',
   imageUrl: 'imageUrl',
   description: 'description',
-  primaryColor: 'primaryColor'
+  primaryColor: 'primaryColor',
+  userId: 'userId'
 };
 
 exports.Prisma.GenreScalarFieldEnum = {
   id: 'id',
   name: 'name'
-};
-
-exports.Prisma.ArtistsScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  genreId: 'genreId',
-  popularity: 'popularity',
-  photoUrl: 'photoUrl',
-  albumId: 'albumId'
 };
 
 exports.Prisma.AlbumScalarFieldEnum = {
@@ -172,20 +172,20 @@ exports.Prisma.AlbumScalarFieldEnum = {
 
 exports.Prisma.AlbumArtistScalarFieldEnum = {
   id: 'id',
-  artistsId: 'artistsId',
+  artistId: 'artistId',
   albumId: 'albumId'
 };
 
 exports.Prisma.PlaylistTracksScalarFieldEnum = {
   id: 'id',
-  trackId: 'trackId',
-  playlistId: 'playlistId'
+  playlistId: 'playlistId',
+  trackId: 'trackId'
 };
 
 exports.Prisma.LikedTracksScalarFieldEnum = {
   id: 'id',
-  trackId: 'trackId',
-  UserId: 'UserId'
+  UserId: 'UserId',
+  trackId: 'trackId'
 };
 
 exports.Prisma.FollowPlaylistScalarFieldEnum = {
@@ -216,18 +216,13 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 
 exports.Prisma.ModelName = {
   Track: 'Track',
   User: 'User',
+  Roles: 'Roles',
   Playlist: 'Playlist',
   Genre: 'Genre',
-  Artists: 'Artists',
   Album: 'Album',
   AlbumArtist: 'AlbumArtist',
   PlaylistTracks: 'PlaylistTracks',
