@@ -131,4 +131,6 @@ model Followers {
   followedUserId Int
   Follower       User @relation(fields: [followerId], references: [id])
   Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
+
 }
+
