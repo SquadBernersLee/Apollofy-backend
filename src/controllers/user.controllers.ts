@@ -7,7 +7,14 @@ export const getAllUser = async (req: Request, res: Response) => {
     try {
         const allUsers = await prisma.user.findMany({
         include:{
-            movies: true
+            Roles: true,
+            LikedTraks: true,
+            Followers: true,
+            Following:true,
+            LikedAlbum: true,
+            FollowPlaylist: true,
+            Playlist: true,
+            AlbumArtist: true
         }
         });
         res.status(200).send(allUsers);
@@ -17,12 +24,12 @@ export const getAllUser = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, roll, dateOfBirth} = req.body;
     console.log(req.body);
 
     try {
         const newUser = await prisma.user.create({
-        data:{ name, email, password }
+        data:{ name, email, password, roll, dateOfBirth}
         });
         res.status(201).send(newUser);
     } catch (error) {
@@ -31,14 +38,14 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const updateUser = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body;
-    // const  userId  = parseInt(req.params.userId);
-    const userId = req.params.userId
+    const { name, email, password, roll, dateOfBirth} = req.body;
+    const  userId  = parseInt(req.params.userId);
+    //const userId = req.params.userId
 
     try {
         const userUpdated = await prisma.user.update({
         where: {id:userId},
-        data:{name, email, password}
+        data:{name, email, password, roll, dateOfBirth}
         })
         res.status(201).send(userUpdated)
     } catch (error) {
@@ -48,8 +55,8 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
-  // const  userId  = parseInt(req.params.userId);
-    const userId = req.params.userId
+    const  userId  = parseInt(req.params.userId);
+    //const userId = req.params.userId
     try {
         const userDeleted = await prisma.user.delete({ 
         where: { id: userId}
