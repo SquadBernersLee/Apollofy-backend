@@ -3,5 +3,5 @@ import express from "express";
 const app = express();
 
 app.use(express.json());
-app.use("/user");
+//app.use("/user", user);
 export default app;
