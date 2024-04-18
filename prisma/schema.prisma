@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/postgre_client"
+  // output   = "./generated/postgre_client"
 }
 
 datasource db {
@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
- model Track {
+model Track {
   id             Int              @id @default(autoincrement())
   name           String
   artist         String
@@ -131,6 +131,4 @@ model Followers {
   followedUserId Int
   Follower       User @relation(fields: [followerId], references: [id])
   Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
-
 }
-
