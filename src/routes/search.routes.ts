@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { createSearch } from "../controllers/search.controllers";
+// import { Router } from "express";
+// import { createSearch } from "../controllers/search.controllers";
 
-const searchRouter = Router();
+// const searchRouter = Router();
 
-searchRouter.post("/api/search", createSearch)
+// searchRouter.post("/api/search", createSearch)

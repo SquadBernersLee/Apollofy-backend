@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/postgre_client"
+  // output   = "./generated/postgre_client"
 }
 
 datasource db {
@@ -24,8 +24,15 @@ model Track {
   thumbnail      String
   Genre          Genre            @relation(fields: [genreId], references: [id])
   Album          Album            @relation(fields: [albumId], references: [id])
-  LikedTracks    LikedTracks[]
+  // LikedTracks    LikedTracks[]
   PlaylistTracks PlaylistTracks[]
+}
+
+model Password {
+  id       Int    @id @default(autoincrement())
+  password String @unique
+  userId   Int?
+  User     User?  @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -33,8 +40,7 @@ model User {
   rolId          Int
   first_name     String
   last_name      String
-  email          String
-  password       String
+  email          String           @unique
   city           String
   gender         String
   profilePicture String
@@ -43,13 +49,14 @@ model User {
   genreId        Int
   popularity     Float
   Roles          Roles            @relation(fields: [rolId], references: [id])
-  LikedTracks    LikedTracks[]
+  // LikedTracks    LikedTracks[]
   Followers      Followers[]
   Followed       Followers[]      @relation("UserFollows")
   LikedAlbums    LikedAlbums[]
   FollowPlaylist FollowPlaylist[]
   Playlist       Playlist[]
   AlbumArtist    AlbumArtist[]
+  password       Password[]
 }
 
 model Roles {
@@ -60,7 +67,7 @@ model Roles {
 
 model Playlist {
   id             Int              @id @default(autoincrement())
-  name           String
+  name           String           @unique
   imageUrl       String
   description    String
   primaryColor   String
@@ -72,7 +79,7 @@ model Playlist {
 
 model Genre {
   id     Int     @id @default(autoincrement())
-  name   String
+  name   String  @unique
   Tracks Track[]
 }
 
@@ -101,14 +108,6 @@ model PlaylistTracks {
   Track      Track    @relation(fields: [trackId], references: [id])
 }
 
-model LikedTracks {
-  id      Int   @id @default(autoincrement())
-  UserId  Int
-  trackId Int
-  User    User  @relation(fields: [UserId], references: [id])
-  Track   Track @relation(fields: [trackId], references: [id])
-}
-
 model FollowPlaylist {
   id         Int      @id @default(autoincrement())
   PlaylistId Int
@@ -131,6 +130,4 @@ model Followers {
   followedUserId Int
   Follower       User @relation(fields: [followerId], references: [id])
   Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
-
 }
-

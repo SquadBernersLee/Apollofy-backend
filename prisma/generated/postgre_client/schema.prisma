@@ -33,7 +33,7 @@ model User {
   rolId          Int
   first_name     String
   last_name      String
-  email          String
+  email          String           @unique
   password       String
   city           String
   gender         String
@@ -60,7 +60,7 @@ model Roles {
 
 model Playlist {
   id             Int              @id @default(autoincrement())
-  name           String
+  name           String           @unique
   imageUrl       String
   description    String
   primaryColor   String
@@ -72,7 +72,7 @@ model Playlist {
 
 model Genre {
   id     Int     @id @default(autoincrement())
-  name   String
+  name   String  @unique
   Tracks Track[]
 }
 
@@ -131,6 +131,4 @@ model Followers {
   followedUserId Int
   Follower       User @relation(fields: [followerId], references: [id])
   Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
-
 }
-
