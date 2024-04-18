@@ -28,12 +28,7 @@ model Track {
   PlaylistTracks PlaylistTracks[]
 }
 
-model Password {
-  id       Int    @id @default(autoincrement())
-  password String @unique
-  userId   Int?
-  User     User?  @relation(fields: [userId], references: [id])
-}
+
 
 model User {
   id             Int              @id @default(autoincrement())
@@ -42,10 +37,11 @@ model User {
   last_name      String
   email          String           @unique
   city           String
+  password String
   gender         String
   profilePicture String
   country        String
-  dateOfBirth    DateTime
+  dateOfBirth    String
   genreId        Int
   popularity     Float
   Roles          Roles            @relation(fields: [rolId], references: [id])
@@ -56,7 +52,7 @@ model User {
   FollowPlaylist FollowPlaylist[]
   Playlist       Playlist[]
   AlbumArtist    AlbumArtist[]
-  password       Password[]
+  
 }
 
 model Roles {
