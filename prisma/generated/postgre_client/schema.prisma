@@ -15,88 +15,122 @@ datasource db {
 }
 
 model Track {
-  id        Int    @id @default(autoincrement())
-  name      String
-  artist    String
-  url       String
-  albumId   String
-  thumbnail String
-  genreId   String
+  id             Int              @id @default(autoincrement())
+  name           String
+  artist         String
+  url            String
+  genreId        Int
+  albumId        Int
+  thumbnail      String
+  Genre          Genre            @relation(fields: [genreId], references: [id])
+  Album          Album            @relation(fields: [albumId], references: [id])
+  LikedTracks    LikedTracks[]
+  PlaylistTracks PlaylistTracks[]
 }
 
 model User {
-  id             Int       @id @default(autoincrement())
+  id             Int              @id @default(autoincrement())
+  rolId          Int
   first_name     String
   last_name      String
-  email          String    @unique
+  email          String
   password       String
   city           String
   gender         String
-  profilePicture String?   @unique
+  profilePicture String
   country        String
-  dateOfBirth    DateTime?
+  dateOfBirth    DateTime
+  genreId        Int
+  popularity     Float
+  Roles          Roles            @relation(fields: [rolId], references: [id])
+  LikedTracks    LikedTracks[]
+  Followers      Followers[]
+  Followed       Followers[]      @relation("UserFollows")
+  LikedAlbums    LikedAlbums[]
+  FollowPlaylist FollowPlaylist[]
+  Playlist       Playlist[]
+  AlbumArtist    AlbumArtist[]
+}
+
+model Roles {
+  id    Int    @id @default(autoincrement())
+  name  String
+  Users User[]
 }
 
 model Playlist {
-  id           Int    @id @default(autoincrement())
-  name         String
-  imageUrl     String
-  description  String
-  primaryColor String
+  id             Int              @id @default(autoincrement())
+  name           String
+  imageUrl       String
+  description    String
+  primaryColor   String
+  userId         Int
+  User           User             @relation(fields: [userId], references: [id])
+  PlaylistTracks PlaylistTracks[]
+  FollowPlaylist FollowPlaylist[]
 }
 
 model Genre {
-  id   Int    @id @default(autoincrement())
-  name String
-}
-
-model Artists {
-  id         Int    @id @default(autoincrement())
-  name       String
-  genreId    String
-  popularity Float
-  photoUrl   String
-  albumId    String
+  id     Int     @id @default(autoincrement())
+  name   String
+  Tracks Track[]
 }
 
 model Album {
-  id       Int    @id @default(autoincrement())
-  name     String
-  imageUrl String
+  id          Int           @id @default(autoincrement())
+  name        String
+  imageUrl    String
+  Tracks      Track[]
+  AlbumArtist AlbumArtist[]
+  LikedAlbums LikedAlbums[]
 }
 
 model AlbumArtist {
-  id        Int @id @default(autoincrement())
-  artistsId Int
-  albumId   Int
+  id       Int   @id @default(autoincrement())
+  artistId Int
+  albumId  Int
+  Artist   User  @relation(fields: [artistId], references: [id])
+  Album    Album @relation(fields: [albumId], references: [id])
 }
 
 model PlaylistTracks {
-  id         Int @id @default(autoincrement())
-  trackId    Int
+  id         Int      @id @default(autoincrement())
   playlistId Int
+  trackId    Int
+  Playlist   Playlist @relation(fields: [playlistId], references: [id])
+  Track      Track    @relation(fields: [trackId], references: [id])
 }
 
 model LikedTracks {
-  id      Int @id @default(autoincrement())
-  trackId Int
+  id      Int   @id @default(autoincrement())
   UserId  Int
+  trackId Int
+  User    User  @relation(fields: [UserId], references: [id])
+  Track   Track @relation(fields: [trackId], references: [id])
 }
 
 model FollowPlaylist {
-  id         Int @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   PlaylistId Int
   UserId     Int
+  Playlist   Playlist @relation(fields: [PlaylistId], references: [id])
+  User       User     @relation(fields: [UserId], references: [id])
 }
 
 model LikedAlbums {
-  id      Int @id @default(autoincrement())
+  id      Int   @id @default(autoincrement())
   AlbumId Int
   UserId  Int
+  Album   Album @relation(fields: [AlbumId], references: [id])
+  User    User  @relation(fields: [UserId], references: [id])
 }
 
 model Followers {
-  id             Int @id @default(autoincrement())
+  id             Int  @id @default(autoincrement())
   followerId     Int
   followedUserId Int
+  Follower       User @relation(fields: [followerId], references: [id])
+  Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
+
 }
+
