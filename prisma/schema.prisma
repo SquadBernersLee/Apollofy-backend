@@ -15,20 +15,20 @@ datasource db {
 }
 
 model Track {
-  id             Int              @id @default(autoincrement())
-  name           String
-  artist         String
-  url            String
-  genreId        Int
-  albumId        Int
-  thumbnail      String
-  Genre          Genre            @relation(fields: [genreId], references: [id])
-  Album          Album            @relation(fields: [albumId], references: [id])
+  id                  Int              @id @default(autoincrement())
+  name                String
+  artist              String
+  url                 String
+  genreId             Int
+  albumId             Int
+  public_id_url       String
+  thumbnail           String
+  public_id_thumbnail String
+  Genre               Genre            @relation(fields: [genreId], references: [id])
+  Album               Album            @relation(fields: [albumId], references: [id])
   // LikedTracks    LikedTracks[]
-  PlaylistTracks PlaylistTracks[]
+  PlaylistTracks      PlaylistTracks[]
 }
-
-
 
 model User {
   id             Int              @id @default(autoincrement())
@@ -37,10 +37,12 @@ model User {
   last_name      String
   email          String           @unique
   city           String
-  password String
+  password       String
   gender         String
   profilePicture String
   country        String
+  img            String?           @default("https://asset.cloudinary.com/dqm1upnhh/08f746f4e6f77fb29646558dce148803")
+  public_id_img  String?
   dateOfBirth    String
   genreId        Int
   popularity     Float
@@ -52,7 +54,6 @@ model User {
   FollowPlaylist FollowPlaylist[]
   Playlist       Playlist[]
   AlbumArtist    AlbumArtist[]
-  
 }
 
 model Roles {
