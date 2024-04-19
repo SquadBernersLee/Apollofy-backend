@@ -3,4 +3,4 @@ import { getAllTracks } from "../controllers/tracks.controller";
 
 export const tracksRouter = Router();
 
-tracksRouter.post("/", getAllTracks);
+tracksRouter.get("/", getAllTracks);
