@@ -1,69 +1,70 @@
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
-// import UserModel from "../models/user.model";
-// import prisma from "../db/client";
-
-export const getAllUser = async (req: Request, res: Response) => {
-    try {
-        const allUsers = await prisma.user.findMany({
-        include:{
-            Roles: true,
-            LikedTraks: true,
-            Followers: true,
-            Following:true,
-            LikedAlbum: true,
-            FollowPlaylist: true,
-            Playlist: true,
-            AlbumArtist: true
-        }
-        });
-        res.status(200).send(allUsers);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-};
 
 export const createUser = async (req: Request, res: Response) => {
-    const { name, email, password, roll, dateOfBirth} = req.body;
-    console.log(req.body);
+  const {
+    first_name,
+    last_name,
+    email,
+    city,
+    gender,
+    profilePicture,
+    password,
+    country,
+    dateOfBirth,
+    genreId,
+    popularity,
+    rolId,
+  } = req.body;
 
-    try {
-        const newUser = await prisma.user.create({
-        data:{ name, email, password, roll, dateOfBirth}
-        });
-        res.status(201).send(newUser);
-    } catch (error) {
-        res.status(400).send(error);
-    }
+  if (
+    !first_name ||
+    !last_name ||
+    !email ||
+    !city ||
+    !gender ||
+    !profilePicture ||
+    !password ||
+    !country ||
+    !dateOfBirth ||
+    !genreId ||
+    !popularity ||
+    !rolId
+  ) {
+    return res.status(400).send("Missing required fields");
+  }
+  try {
+    const newUser = await prisma.user.create({
+      data: {
+        first_name,
+        email,
+        password,
+        last_name,
+        city,
+        gender,
+        profilePicture,
+        country,
+        dateOfBirth,
+        genreId,
+        popularity,
+        rolId,
+      },
+    });
+
+    return res.status(201).send({
+      msg: "New user created",
+      data: newUser,
+    });
+  } catch (error: any) {
+    res.status(400).send("Error creating user: " + error.message);
+  }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
-    const { name, email, password, roll, dateOfBirth} = req.body;
-    const  userId  = parseInt(req.params.userId);
-    //const userId = req.params.userId
-
-    try {
-        const userUpdated = await prisma.user.update({
-        where: {id:userId},
-        data:{name, email, password, roll, dateOfBirth}
-        })
-        res.status(201).send(userUpdated)
-    } catch (error) {
-        res.status(400).send(error)
-        console.log(error)
-    }
-};
-
-export const deleteUser = async (req: Request, res: Response) => {
-    const  userId  = parseInt(req.params.userId);
-    //const userId = req.params.userId
-    try {
-        const userDeleted = await prisma.user.delete({ 
-        where: { id: userId}
-        })
-        res.status(200).send(userDeleted)
-    } catch (error) {
-        res.status(400).send(error)
-    }
-
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const allUsers = await prisma.user.findMany();
+    res.status(201).send({ msg: "Here are all your users", data: allUsers });
+  } catch (error) {
+    res.status(400).send({ msg: "Error", error });
+  }
 };
