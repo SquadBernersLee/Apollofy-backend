@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getAllMyTracks } from "../controllers/myTrack.controllers";
 
-const myTracksRouter = Router();
+export const myTracksRouter = Router();
 
-myTracksRouter.get("/api/me/track", getAllMyTracks)
+myTracksRouter.get("/:userId", getAllMyTracks)
