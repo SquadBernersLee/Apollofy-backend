@@ -4,7 +4,7 @@ import { createTracks, deleteTrack, getAllTracks, trackUpdated } from "../contro
 
 export const tracksRouter = Router()
 
-tracksRouter.get("/api/tracks/:userId", getAllTracks)
-tracksRouter.post("/api/track/", createTracks)
-tracksRouter.patch("/api/tracks/:userId", trackUpdated)
-tracksRouter.delete("/api/tracks/:userId", deleteTrack)
+tracksRouter.get("/", getAllTracks)
+tracksRouter.post("/:userId", createTracks)
+tracksRouter.patch("/:userId", trackUpdated)
+tracksRouter.delete("/:userId", deleteTrack)

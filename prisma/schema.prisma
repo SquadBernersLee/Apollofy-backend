@@ -19,6 +19,7 @@ model Track {
   name           String
   artist         String
   url            String
+  userId         Int
   genreId        Int
   albumId        Int
   thumbnail      String
