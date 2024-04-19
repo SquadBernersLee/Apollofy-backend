@@ -136,12 +136,13 @@
                 password, 
                 country, 
                 username, 
-                dateOfBirth, 
+                dateOfBirth,
+                img,
                 genreId, 
                 popularity, 
                 rolId } = 
                 req.body;
-            if (!first_name || !last_name || !email || !password || !username|| !city || !gender  || !profilePicture  || !country  || !dateOfBirth  || !genreId  || !popularity  || !rolId ) {
+            if (!first_name || !last_name || !email || !password || !username|| !city || !gender || !img || !profilePicture  || !country  || !dateOfBirth  || !genreId  || !popularity  || !rolId ) {
             return res
                 .status(400)
                 .send(
@@ -160,6 +161,7 @@
                         profilePicture,
                         country,
                         dateOfBirth,
+                        img,
                         genreId,
                         popularity,
                         Roles: { connect: { id: rolId } },
