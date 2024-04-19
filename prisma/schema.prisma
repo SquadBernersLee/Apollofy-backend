@@ -41,7 +41,7 @@ model User {
   gender         String
   profilePicture String
   country        String
-  img            String?           @default("https://asset.cloudinary.com/dqm1upnhh/08f746f4e6f77fb29646558dce148803")
+  img            String
   public_id_img  String?
   dateOfBirth    String
   genreId        Int
