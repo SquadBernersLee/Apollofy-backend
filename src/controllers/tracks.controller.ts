@@ -11,11 +11,11 @@ export const getAllTracks = async (req: Request, res: Response) => {
 };
 
 export const createTracks = async (req: Request, res: Response) => {
-  const {name, artist, url, genreId, albumId, thumbnail } = req.body;
-
+  const {name, url, genreId, albumId, thumbnail } = req.body;
+console.log(req.body)
   try {
       const newTrack = await prisma.track.create({
-          data:{ name, artist, url, genreId, albumId, thumbnail}
+          data:{ name, url, genreId, albumId, thumbnail}
       })
       res.status(200).send(newTrack)
   } catch (error) {
@@ -24,12 +24,12 @@ export const createTracks = async (req: Request, res: Response) => {
 }
 
 export const trackUpdated = async(req: Request, res: Response) => {
-  const {name, artist, url, genreId, albumId, thumbnail } = req.body;
+  const {name, url, genreId, albumId, thumbnail } = req.body;
   const userId = parseInt(req.params.userId);
   try {
       const updatedTrack = await prisma.track.update({
           where: {id:userId},
-          data: {name, artist, url, genreId, albumId, thumbnail}
+          data: {name, url, genreId, albumId, thumbnail}
       })
       res.status(200).send(updatedTrack)
   } catch (error) {

@@ -5,5 +5,5 @@ import { createTrackLiked, deleteLikedTrack, getAllLikedTracks } from "../contro
 export const likedTrackRouter = Router()
 
 likedTrackRouter.get("/:userId", getAllLikedTracks)
-likedTrackRouter.post("/:userId", createTrackLiked)
+likedTrackRouter.post("/", createTrackLiked)
 likedTrackRouter.delete("/:userId", deleteLikedTrack)
