@@ -6,7 +6,10 @@ import { tracksRouter } from "./routes/tracks.routes";
 import userRouter from "./routes/user.routes";
 import searchRouter from "./routes/search.routes";
 
+const cors = require("cors");
+
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 /* app.use("/user"); */
