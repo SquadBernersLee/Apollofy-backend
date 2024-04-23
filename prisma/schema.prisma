@@ -17,7 +17,6 @@ datasource db {
 model Track {
   id             Int              @id @default(autoincrement())
   name           String
-  artist         String
   url            String
   genreId        Int
   albumId        Int
