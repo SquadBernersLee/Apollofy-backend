@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
 
 export const getAllLikedTracks = async (req: Request, res: Response) => {
+    const userId = parseInt(req.params.userId);
+
     try {
-        const AllLikedTracks = await prisma.likedTracks.findMany()
+        const AllLikedTracks = await prisma.likedTracks.findMany({
+            where: {UserId:userId}
+        })
         res.status(200).send(AllLikedTracks)
     } catch (error) {
         res.status(400).send(error)

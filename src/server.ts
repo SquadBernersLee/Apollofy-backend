@@ -13,7 +13,7 @@ app.use(express.json());
 app.use("/api", requestRoutes);
 app.use("/api/playlist", playlistRouter);
 app.use("/api/track", tracksRouter);
-app.use("/api/track/:userId/like", likedTrackRouter)
+app.use("/api/track", likedTrackRouter)
 app.use("/api/:userId/track", myTracksRouter)
 
 export default app;
