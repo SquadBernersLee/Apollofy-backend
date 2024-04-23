@@ -6,12 +6,14 @@ import userRouter from "./routes/user.routes";
 import artistRouter from "./routes/artist.routes";
 import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";
+import searchRouter from "./routes/search.routes";
 
 const app = express();
 
 app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api", requestRoutes);
+app.use("/api/search", searchRouter);
 // app.use("/api/password", passwordRouter);
 app.use("/api/artists", artistRouter );
 
