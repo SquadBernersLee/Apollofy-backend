@@ -109,7 +109,7 @@ model LikedTracks {
   User    User  @relation(fields: [UserId], references: [id])
   Track   Track @relation(fields: [trackId], references: [id])
 }
-
+ 
 model ArtistTracks {
   id      Int   @id @default(autoincrement())
   UserId  Int

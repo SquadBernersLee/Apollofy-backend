@@ -12,15 +12,20 @@ export const getAllTracks = async (req: Request, res: Response) => {
 
 export const createTracks = async (req: Request, res: Response) => {
   const {name, url, genreId, albumId, thumbnail } = req.body;
+  const UserId = parseInt(req.params.userId)
 console.log(req.body)
   try {
       const newTrack = await prisma.track.create({
           data:{ name, url, genreId, albumId, thumbnail}
       })
+      const newArtistTrack = await prisma.artistTracks.create({
+        data: { UserId, trackId: newTrack.id }
+      })
       res.status(200).send(newTrack)
   } catch (error) {
       res.status(400).send(error)
   }
+  
 }
 
 export const trackUpdated = async(req: Request, res: Response) => {

@@ -14,6 +14,6 @@ app.use("/api", requestRoutes);
 app.use("/api/playlist", playlistRouter);
 app.use("/api/track", tracksRouter);
 app.use("/api/track", likedTrackRouter)
-app.use("/api/:userId/track", myTracksRouter)
+app.use("/api/track", myTracksRouter)
 
 export default app;
