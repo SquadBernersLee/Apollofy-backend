@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "./generated/postgre_client"
+  //output   = "./generated/postgre_client"
 }
 
 datasource db {
@@ -15,19 +15,17 @@ datasource db {
 }
 
 model Track {
-  id                  Int              @id @default(autoincrement())
-  name                String
-  artist              String
-  url                 String
-  genreId             Int
-  albumId             Int
-  public_id_url       String
-  thumbnail           String
-  public_id_thumbnail String
-  Genre               Genre            @relation(fields: [genreId], references: [id])
-  Album               Album            @relation(fields: [albumId], references: [id])
-  // LikedTracks    LikedTracks[]
-  PlaylistTracks      PlaylistTracks[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  url            String
+  genreId        Int
+  albumId        Int
+  thumbnail      String
+  Genre          Genre            @relation(fields: [genreId], references: [id])
+  Album          Album            @relation(fields: [albumId], references: [id])
+  LikedTracks    LikedTracks[]
+  ArtistTracks    ArtistTracks[]
+  PlaylistTracks PlaylistTracks[]
 }
 
 model User {
@@ -41,13 +39,12 @@ model User {
   gender         String
   profilePicture String
   country        String
-  img            String?           @default("https://asset.cloudinary.com/dqm1upnhh/08f746f4e6f77fb29646558dce148803")
-  public_id_img  String?
   dateOfBirth    String
   genreId        Int
   popularity     Float
   Roles          Roles            @relation(fields: [rolId], references: [id])
-  // LikedTracks    LikedTracks[]
+  LikedTracks    LikedTracks[]
+  ArtistTracks    ArtistTracks[]
   Followers      Followers[]
   Followed       Followers[]      @relation("UserFollows")
   LikedAlbums    LikedAlbums[]
@@ -103,6 +100,22 @@ model PlaylistTracks {
   trackId    Int
   Playlist   Playlist @relation(fields: [playlistId], references: [id])
   Track      Track    @relation(fields: [trackId], references: [id])
+}
+
+model LikedTracks {
+  id      Int   @id @default(autoincrement())
+  UserId  Int
+  trackId Int
+  User    User  @relation(fields: [UserId], references: [id])
+  Track   Track @relation(fields: [trackId], references: [id])
+}
+
+model ArtistTracks {
+  id      Int   @id @default(autoincrement())
+  UserId  Int
+  trackId Int
+  User    User  @relation(fields: [UserId], references: [id])
+  Track   Track @relation(fields: [trackId], references: [id])
 }
 
 model FollowPlaylist {
