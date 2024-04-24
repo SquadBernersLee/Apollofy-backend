@@ -1,11 +1,9 @@
-import { Router } from "express"
-import { createUser, deleteUser, getAllUser, updateUser } from "../controllers/user.controllers";
+import { Router } from "express";
+import { createUser, getAllUsers } from "../controllers/user.controllers";
 
 const userRouter = Router();
 
-userRouter.get("/api/account", getAllUser)
-userRouter.post("/api/account", createUser)
-userRouter.patch("/api/account:userId", updateUser)
-userRouter.delete("/api/account:userId", deleteUser)
+userRouter.post("/account", createUser);
+userRouter.get("/account", getAllUsers);
 
 export default userRouter;

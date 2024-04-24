@@ -1,11 +1,11 @@
-import { Router } from "express"
-import { createPassword, getAllPasswords, updatePassword } from "../controllers/password.controllers";
-import { checkJwtMiddlewares } from "../middlewares/checkjwt.middlewares";
+// import { Router } from "express"
+// import { createPassword, getAllPasswords, updatePassword } from "../controllers/password.controllers";
+// import { checkJwtMiddlewares } from "../middlewares/checkjwt.middlewares";
 
-const passwordRouter = Router();
+// const passwordRouter = Router();
 
-passwordRouter.get("/api/authenticate", checkJwtMiddlewares, getAllPasswords)
-passwordRouter.post("/api/authenticate", checkJwtMiddlewares, createPassword)
-passwordRouter.patch("/api/authenticate:passwordId", checkJwtMiddlewares, updatePassword)
+// passwordRouter.get("/authenticate", checkJwtMiddlewares, getAllPasswords)
+// passwordRouter.post("/authenticate/:userId", checkJwtMiddlewares, createPassword)
+// passwordRouter.patch("/authenticate/:passwordId", checkJwtMiddlewares, updatePassword)
 
-export default passwordRouter;
+// export default passwordRouter;
