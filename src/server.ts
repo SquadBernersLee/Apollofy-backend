@@ -10,6 +10,7 @@ import userRouter from "./routes/user.routes";
 import artistRouter from "./routes/artist.routes";
 import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";
+import searchRouter from "./routes/search.routes";
 
 const cors = require("cors");
 
@@ -26,6 +27,8 @@ app.use("/api/track", checkJwtMiddlewares, likedTrackRouter)
 app.use("/api/track", checkJwtMiddlewares, myTracksRouter)
 // app.use("/api/password", passwordRouter);
 app.use("/api/artists", checkJwtMiddlewares, artistRouter );
+app.use("/api/user", userRouter);
+app.use("/api/search", searchRouter);
 
 app.use(urlencoded({ extended: true }));
 app.use(fileUpload({ useTempFiles: true, tempFileDir: "./upload" }));
