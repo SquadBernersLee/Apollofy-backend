@@ -36,6 +36,9 @@ model User {
   last_name      String
   email          String
   password       String
+  img            String     @default("https://asset.cloudinary.com/dqm1upnhh/08f746f4e6f77fb29646558dce148803")
+  public_id_img  String?
+  refreshToken   String
   city           String
   gender         String
   profilePicture String
