@@ -37,8 +37,9 @@ model User {
   city           String
   password       String
   gender         String
-  profilePicture String
   country        String
+  img            String
+  public_id_img  String?
   dateOfBirth    String
   genreId        Int
   popularity     Float
@@ -109,7 +110,6 @@ model LikedTracks {
   User    User  @relation(fields: [UserId], references: [id])
   Track   Track @relation(fields: [trackId], references: [id])
 }
-
 model ArtistTracks {
   id      Int   @id @default(autoincrement())
   UserId  Int

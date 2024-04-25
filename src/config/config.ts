@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 
 type Tconfig = {
   [key: string]: Environmentconfig;
+  // cloudinary_cloud_name: string | number
 };
 
 type Environmentconfig = {
@@ -20,7 +21,7 @@ type DBConfig = {
 };
 
 type CloudinaryConfig = {
-  cloudinary_name: string;
+  cloudinary_cloud_name: string;
   api_key: string;
   api_secret: string;
 };
@@ -47,7 +48,7 @@ const CONFIG: Tconfig = {
       URI: process.env.DATABASE_URL || "postgresql://apollofy_owner:JoBT9pVZcR1b@ep-gentle-forest-a2spku8x.eu-central-1.aws.neon.tech/apollofy?sslmode=require",
     },
     cloudinary: {
-      cloudinary_name: process.env.CLOUDINARY_NAME || "error",
+      cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "error",
       api_key: process.env.CLOUDINARY_API_KEY || "error",
       api_secret: process.env.CLOUDINARY_API_SECRET || "error",
     },
@@ -65,10 +66,10 @@ const CONFIG: Tconfig = {
       URI: process.env.DATABASE_URL || "postgresql://apollofy_owner:JoBT9pVZcR1b@ep-gentle-forest-a2spku8x.eu-central-1.aws.neon.tech/apollofy?sslmode=require",
     },
     cloudinary: {
-      cloudinary_name: process.env.CLOUDINARY_NAME || "error",
+      cloudinary_cloud_name: process.env.CLOUDINARY_NAME || "error",
       api_key: process.env.CLOUDINARY_API_KEY || "error",
       api_secret: process.env.CLOUDINARY_API_SECRET || "error",
-    },
+    }
   },
 };
 

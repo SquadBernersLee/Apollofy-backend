@@ -24,16 +24,44 @@ export const getSearch = async (req: Request, res: Response) => {
         name: { contains: query as string, mode: "insensitive" },
       },
     });
-    
+
     const allPromises = await Promise.all([allArtists, allSongs, allAlbums]);
-    
+    const artists = allPromises[0];
+    const songs = allPromises[1];
+    const albums = allPromises[2];
+
+    const artistsToSend = artists.map(
+      ({ id, first_name, last_name, img }) => ({
+        id,
+        first_name,
+        last_name,
+        img,
+      })
+    );
+    const songsToSend = songs.map(({ id, name, thumbnail }) => ({
+      id,
+      name,
+      thumbnail,
+    }));
+    const albumsToSend = albums.map(({ id, name, imageUrl }) => ({
+      id,
+      name,
+      imageUrl,
+    }));
+
     res.status(201).send({
       msg: "Here is your information",
       data: {
-        artists: allPromises[0],
-        songs: allPromises[1],
-        albums: allPromises[2],
+        artists: artistsToSend,
+        songs: songsToSend,
+        albums: albumsToSend,
       },
+      typeofArtists: typeof artists,
+      typeofSongs: typeof songs,
+      typeofAlbums: typeof albums,
+      isArrayArtists: Array.isArray(artists),
+      isArraySongs: Array.isArray(songs),
+      isArrayAlbums: Array.isArray(albums),
     });
   } catch (error) {
     res.status(400).send({ msg: "Error", error });
