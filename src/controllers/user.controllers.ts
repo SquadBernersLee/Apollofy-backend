@@ -2,7 +2,7 @@ require('dotenv').config();
 
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import { Prisma } from "@prisma/client";
 import fs from 'fs-extra';
@@ -28,9 +28,9 @@ export const createUser = async (req: Request, res: Response) => {
         email,
         city,
         gender,
-        profilePicture,
+        img,
+        public_id_img,
         password,
-        refreshToken,
         country,
         dateOfBirth,
         genreId,
@@ -44,7 +44,7 @@ export const createUser = async (req: Request, res: Response) => {
         !email ||
         !city ||
         !gender ||
-        !profilePicture ||
+        !img ||
         !password ||
         !country ||
         !dateOfBirth ||
@@ -77,9 +77,9 @@ export const createUser = async (req: Request, res: Response) => {
                 email,
                 city,
                 gender,
-                profilePicture,
+                img,
+                public_id_img,
                 password: hashedPassword,
-                refreshToken,
                 country,
                 dateOfBirth,
                 genreId,
@@ -127,7 +127,8 @@ export const updateUser = async (req: Request, res: Response) => {
         email,
         city,
         gender,
-        profilePicture,
+        img,
+        public_id_img,
         password,
         country,
         dateOfBirth,
@@ -137,16 +138,19 @@ export const updateUser = async (req: Request, res: Response) => {
     } = req.body;
         const  userId  = parseInt(req.params.userId);
     try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: {
                 first_name,
                 email,
-                password,
+                password: hashedPassword,
                 last_name,
                 city,
                 gender,
-                profilePicture,
+                img,
+                public_id_img,
                 country,
                 dateOfBirth,
                 genreId,

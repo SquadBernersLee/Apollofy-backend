@@ -8,12 +8,10 @@ import { myTracksRouter } from "./routes/myTracks.routes";
 import userRouter from "./routes/user.routes";
 import cors from 'cors';  
 // import passwordRouter from "./routes/password.routes";
-import artistRouter from "./routes/artist.routes";
+// import artistRouter from "./routes/artist.routes";
 import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";
 import searchRouter from "./routes/search.routes";
-
-const cors = require("cors");
 
 const app = express();
 app.use(cors());
@@ -27,7 +25,7 @@ app.use("/api/track", checkJwtMiddlewares, tracksRouter);
 app.use("/api/track", checkJwtMiddlewares, likedTrackRouter)
 app.use("/api/track", checkJwtMiddlewares, myTracksRouter)
 // app.use("/api/password", passwordRouter);
-app.use("/api/artists", checkJwtMiddlewares, artistRouter );
+// app.use("/api/artists", checkJwtMiddlewares, artistRouter );
 app.use("/api/user", userRouter);
 app.use("/api/search", searchRouter);
 

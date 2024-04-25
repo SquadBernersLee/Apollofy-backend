@@ -36,9 +36,7 @@ model User {
   email          String           @unique
   city           String
   password       String
-  
   gender         String
-  profilePicture String
   country        String
   img            String
   public_id_img  String?
