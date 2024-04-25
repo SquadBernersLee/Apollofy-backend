@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { checkJwtMiddlewares } from "../middlewares/checkjwt.middlewares";
 import {
-  protectedRequest,
-  publicRequest,
+    protectedRequest,
+    publicRequest,
 } from "../controllers/requests.controllers";
 
 export const requestRoutes: Router = Router();

@@ -6,6 +6,7 @@ import { tracksRouter } from "./routes/tracks.routes";
 import { likedTrackRouter } from "./routes/likedTracks.routes";
 import { myTracksRouter } from "./routes/myTracks.routes";
 import userRouter from "./routes/user.routes";
+import cors from 'cors';  
 // import passwordRouter from "./routes/password.routes";
 import artistRouter from "./routes/artist.routes";
 import { urlencoded } from "body-parser";
@@ -34,3 +35,4 @@ app.use(urlencoded({ extended: true }));
 app.use(fileUpload({ useTempFiles: true, tempFileDir: "./upload" }));
 
 export default app;
+
