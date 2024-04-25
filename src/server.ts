@@ -13,6 +13,7 @@ import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";
 import searchRouter from "./routes/search.routes";
 
+
 const app = express();
 app.use(cors());
 
