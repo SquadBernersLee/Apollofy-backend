@@ -8,7 +8,7 @@ export const createUser = async (req: Request, res: Response) => {
     email,
     city,
     gender,
-    profilePicture,
+    img,
     password,
     country,
     dateOfBirth,
@@ -23,7 +23,7 @@ export const createUser = async (req: Request, res: Response) => {
     !email ||
     !city ||
     !gender ||
-    !profilePicture ||
+    !img ||
     !password ||
     !country ||
     !dateOfBirth ||
@@ -42,7 +42,7 @@ export const createUser = async (req: Request, res: Response) => {
         last_name,
         city,
         gender,
-        profilePicture,
+        img,
         country,
         dateOfBirth,
         genreId,
