@@ -210,7 +210,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\alvar\\alv-pro\\Apollofy\\Apollofy-backend\\prisma\\generated\\postgre_client",
+      "value": "/home/rener/AIT/Apollofy-backend/prisma/generated/postgre_client",
       "fromEnvVar": null
     },
     "config": {
@@ -219,7 +219,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-1.1.x",
         "native": true
       }
     ],
