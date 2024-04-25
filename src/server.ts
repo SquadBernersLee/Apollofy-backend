@@ -11,7 +11,11 @@ import artistRouter from "./routes/artist.routes";
 import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";
 
+const cors = require("cors");
+
 const app = express();
+app.use(cors());
+
 
 app.use(express.json());
 app.use("/user");
