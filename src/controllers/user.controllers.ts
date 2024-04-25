@@ -29,7 +29,6 @@ export const createUser = async (req: Request, res: Response) => {
         city,
         gender,
         img,
-        public_id_img,
         password,
         country,
         dateOfBirth,
@@ -37,6 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
         popularity,
         rolId,
     } = req.body;
+    console.log(req.body)
 
     if (
         !first_name ||
@@ -67,7 +67,7 @@ export const createUser = async (req: Request, res: Response) => {
         }
 
         // Hash de la contraseña
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
         // Crear usuario
         const newUser = await prisma.user.create({
@@ -78,8 +78,8 @@ export const createUser = async (req: Request, res: Response) => {
                 city,
                 gender,
                 img,
-                public_id_img,
-                password: hashedPassword,
+                // password: hashedPassword,
+                password,      
                 country,
                 dateOfBirth,
                 genreId,
@@ -115,7 +115,7 @@ export const createUser = async (req: Request, res: Response) => {
         //         data: newUser,
         //     });
     } catch (error: any) {
-        return res.status(400).send("Error creating user: " + error.message);
+        return res.status(400).send("Error creating user");
     }
 };
 
@@ -128,7 +128,6 @@ export const updateUser = async (req: Request, res: Response) => {
         city,
         gender,
         img,
-        public_id_img,
         password,
         country,
         dateOfBirth,
@@ -136,21 +135,22 @@ export const updateUser = async (req: Request, res: Response) => {
         popularity,
         rolId,
     } = req.body;
+    console.log(req.body)
         const  userId  = parseInt(req.params.userId);
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // const hashedPassword = await bcrypt.hash(password, 10);
 
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: {
                 first_name,
                 email,
-                password: hashedPassword,
+                // password: hashedPassword,
+                password,
                 last_name,
                 city,
                 gender,
                 img,
-                public_id_img,
                 country,
                 dateOfBirth,
                 genreId,
@@ -163,7 +163,7 @@ export const updateUser = async (req: Request, res: Response) => {
             .status(201)
             .send({ msg: 'The user has been updated', data: updatedUser });
         } catch (error) {
-        res.status(400).send({ msg: 'ERROR' });
+        res.status(400).send({ msg: "ERROR" });
         }
     };
     

@@ -24,7 +24,7 @@ model Track {
   Genre          Genre            @relation(fields: [genreId], references: [id])
   Album          Album            @relation(fields: [albumId], references: [id])
   LikedTracks    LikedTracks[]
-  ArtistTracks    ArtistTracks[]
+  ArtistTracks   ArtistTracks[]
   PlaylistTracks PlaylistTracks[]
 }
 
@@ -45,7 +45,7 @@ model User {
   popularity     Float
   Roles          Roles            @relation(fields: [rolId], references: [id])
   LikedTracks    LikedTracks[]
-  ArtistTracks    ArtistTracks[]
+  ArtistTracks   ArtistTracks[]
   Followers      Followers[]
   Followed       Followers[]      @relation("UserFollows")
   LikedAlbums    LikedAlbums[]
@@ -110,6 +110,7 @@ model LikedTracks {
   User    User  @relation(fields: [UserId], references: [id])
   Track   Track @relation(fields: [trackId], references: [id])
 }
+
 model ArtistTracks {
   id      Int   @id @default(autoincrement())
   UserId  Int
