@@ -18,14 +18,14 @@ app.use(cors());
 
 
 app.use(express.json());
-app.use("/user");
-app.use("/api", requestRoutes)
-app.use("/api/playlist", playlistRouter);
-app.use("/api/track", tracksRouter);
-app.use("/api/track", likedTrackRouter)
-app.use("/api/track", myTracksRouter)
+app.use("/user", checkJwtMiddlewares);
+app.use("/api", checkJwtMiddlewares, requestRoutes)
+app.use("/api/playlist",checkJwtMiddlewares, playlistRouter);
+app.use("/api/track", checkJwtMiddlewares, tracksRouter);
+app.use("/api/track", checkJwtMiddlewares, likedTrackRouter)
+app.use("/api/track", checkJwtMiddlewares, myTracksRouter)
 // app.use("/api/password", passwordRouter);
-app.use("/api/artists", artistRouter );
+app.use("/api/artists", checkJwtMiddlewares, artistRouter );
 
 app.use(urlencoded({ extended: true }));
 app.use(fileUpload({ useTempFiles: true, tempFileDir: "./upload" }));
