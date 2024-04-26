@@ -14262,13 +14262,13 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     rolId?: IntFilter<"User"> | number
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     city?: StringFilter<"User"> | string
     gender?: StringFilter<"User"> | string
@@ -14285,7 +14285,7 @@ export namespace Prisma {
     FollowPlaylist?: FollowPlaylistListRelationFilter
     Playlist?: PlaylistListRelationFilter
     AlbumArtist?: AlbumArtistListRelationFilter
-  }, "id">
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14398,10 +14398,10 @@ export namespace Prisma {
 
   export type PlaylistWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: PlaylistWhereInput | PlaylistWhereInput[]
     OR?: PlaylistWhereInput[]
     NOT?: PlaylistWhereInput | PlaylistWhereInput[]
-    name?: StringFilter<"Playlist"> | string
     imageUrl?: StringFilter<"Playlist"> | string
     description?: StringFilter<"Playlist"> | string
     primaryColor?: StringFilter<"Playlist"> | string
@@ -14409,7 +14409,7 @@ export namespace Prisma {
     User?: XOR<UserRelationFilter, UserWhereInput>
     PlaylistTracks?: PlaylistTracksListRelationFilter
     FollowPlaylist?: FollowPlaylistListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type PlaylistOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14454,12 +14454,12 @@ export namespace Prisma {
 
   export type GenreWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: GenreWhereInput | GenreWhereInput[]
     OR?: GenreWhereInput[]
     NOT?: GenreWhereInput | GenreWhereInput[]
-    name?: StringFilter<"Genre"> | string
     Tracks?: TrackListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type GenreOrderByWithAggregationInput = {
     id?: SortOrder
