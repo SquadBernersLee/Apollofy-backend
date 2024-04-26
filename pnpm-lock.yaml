@@ -52,6 +52,9 @@ devDependencies:
   '@prisma/client':
     specifier: ^5.12.1
     version: 5.12.1(prisma@5.12.1)
+  '@types/cors':
+    specifier: ^2.8.17
+    version: 2.8.17
   '@types/express':
     specifier: ^4.17.21
     version: 4.17.21
@@ -235,6 +238,12 @@ packages:
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
     dependencies:
       '@types/node': 20.12.7
+
+  /@types/cors@2.8.17:
+    resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
+    dependencies:
+      '@types/node': 20.12.7
+    dev: true
 
   /@types/express-fileupload@1.5.0:
     resolution: {integrity: sha512-Y9v88IC5ItAxkKwfnyIi1y0jSZwTMY4jqXUQLZ3jFhYJlLdRnN919bKBNM8jbVVD2cxywA/uEC1kNNpZQGwx7Q==}

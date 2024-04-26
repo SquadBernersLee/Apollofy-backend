@@ -48,7 +48,11 @@ export const getSearch = async (req: Request, res: Response) => {
       name,
       imageUrl,
     }));
-
+console.log({
+  artists: artistsToSend,
+  songs: songsToSend,
+  albums: albumsToSend,
+},)
     res.status(201).send({
       msg: "Here is your information",
       data: {
