@@ -5,7 +5,7 @@ export const getSearch = async (req: Request, res: Response) => {
   const { query } = req.query;
   console.log(req.query);
   try {
-    const allArtists = prisma.user.findMany({
+    const allArtists = prisma.users.findMany({
       where: {
         rolId: 1,
         OR: [
@@ -31,11 +31,11 @@ export const getSearch = async (req: Request, res: Response) => {
     const albums = allPromises[2];
 
     const artistsToSend = artists.map(
-      ({ id, first_name, last_name, profilePicture }) => ({
+      ({ id, first_name, last_name, img }) => ({
         id,
         first_name,
         last_name,
-        profilePicture,
+        img,
       })
     );
     const songsToSend = songs.map(({ id, name, thumbnail }) => ({
