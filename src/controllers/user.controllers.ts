@@ -34,7 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(400).send("Missing required fields");
   }
   try {
-    const newUser = await prisma.user.create({
+    const newUser = await prisma.users.create({
       data: {
         first_name,
         email,
@@ -62,7 +62,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const allUsers = await prisma.user.findMany();
+    const allUsers = await prisma.users.findMany();
     res.status(201).send({ msg: "Here are all your users", data: allUsers });
   } catch (error) {
     res.status(400).send({ msg: "Error", error });

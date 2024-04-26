@@ -28,7 +28,7 @@ model Track {
   PlaylistTracks PlaylistTracks[]
 }
 
-model User {
+model users {
   id             Int              @id @default(autoincrement())
   rolId          Int
   first_name     String
@@ -56,7 +56,7 @@ model User {
 model Roles {
   id    Int    @id @default(autoincrement())
   name  String
-  Users User[]
+  Users users[]
 }
 
 model Playlist {
@@ -66,7 +66,7 @@ model Playlist {
   description    String
   primaryColor   String
   userId         Int
-  User           User             @relation(fields: [userId], references: [id])
+  User           users             @relation(fields: [userId], references: [id])
   PlaylistTracks PlaylistTracks[]
   FollowPlaylist FollowPlaylist[]
 }
@@ -90,7 +90,7 @@ model AlbumArtist {
   id       Int   @id @default(autoincrement())
   artistId Int
   albumId  Int
-  Artist   User  @relation(fields: [artistId], references: [id])
+  Artist   users  @relation(fields: [artistId], references: [id])
   Album    Album @relation(fields: [albumId], references: [id])
 }
 
@@ -106,7 +106,7 @@ model LikedTracks {
   id      Int   @id @default(autoincrement())
   UserId  Int
   trackId Int
-  User    User  @relation(fields: [UserId], references: [id])
+  User    users  @relation(fields: [UserId], references: [id])
   Track   Track @relation(fields: [trackId], references: [id])
 }
 
@@ -114,7 +114,7 @@ model ArtistTracks {
   id      Int   @id @default(autoincrement())
   UserId  Int
   trackId Int
-  User    User  @relation(fields: [UserId], references: [id])
+  User    users  @relation(fields: [UserId], references: [id])
   Track   Track @relation(fields: [trackId], references: [id])
 }
 
@@ -123,7 +123,7 @@ model FollowPlaylist {
   PlaylistId Int
   UserId     Int
   Playlist   Playlist @relation(fields: [PlaylistId], references: [id])
-  User       User     @relation(fields: [UserId], references: [id])
+  User       users     @relation(fields: [UserId], references: [id])
 }
 
 model LikedAlbums {
@@ -131,13 +131,13 @@ model LikedAlbums {
   AlbumId Int
   UserId  Int
   Album   Album @relation(fields: [AlbumId], references: [id])
-  User    User  @relation(fields: [UserId], references: [id])
+  User    users  @relation(fields: [UserId], references: [id])
 }
 
 model Followers {
   id             Int  @id @default(autoincrement())
   followerId     Int
   followedUserId Int
-  Follower       User @relation(fields: [followerId], references: [id])
-  Followed       User @relation(name: "UserFollows", fields: [followedUserId], references: [id])
+  Follower       users @relation(fields: [followerId], references: [id])
+  Followed       users @relation(name: "UserFollows", fields: [followedUserId], references: [id])
 }

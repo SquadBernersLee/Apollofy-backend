@@ -11,8 +11,7 @@ export const getAllPlaylist = async (req: Request, res: Response) => {
 };
 
 export const createPlaylist = async (req: Request, res: Response) => {
-  const { name, imageUrl, description, primaryColor } = req.body;
-  const userId = 1;
+  const { name, imageUrl, description, primaryColor, userId } = req.body;
 
   if (!name || !imageUrl || !description || !primaryColor) {
     return res.status(400).send("Missing required fields");
