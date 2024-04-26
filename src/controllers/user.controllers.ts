@@ -14,7 +14,7 @@ import fs from 'fs-extra';
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
-        const allUsers = await prisma.user.findMany();
+        const allUsers = await prisma.users.findMany();
         res.status(201).send({ msg: "Here are all your users", data: allUsers });
     } catch (error) {
         res.status(400).send({ msg: "Error", error });
@@ -42,21 +42,15 @@ export const createUser = async (req: Request, res: Response) => {
         !first_name ||
         !last_name ||
         !email ||
-        !city ||
         !gender ||
         !img ||
-        !password ||
-        !country ||
-        !dateOfBirth ||
-        !genreId ||
-        !popularity ||
-        !rolId
+        !password
     ) {
         return res.status(400).send("Missing required fields");
     }
 
     try {
-        const existingUser = await prisma.user.findFirst({
+        const existingUser = await prisma.users.findFirst({
             where: {
                 email: email,
             },
@@ -70,7 +64,7 @@ export const createUser = async (req: Request, res: Response) => {
         // const hashedPassword = await bcrypt.hash(password, 10);
 
         // Crear usuario
-        const newUser = await prisma.user.create({
+        const newUser = await prisma.users.create({
             data: {
                 first_name,
                 last_name,
@@ -84,9 +78,12 @@ export const createUser = async (req: Request, res: Response) => {
                 dateOfBirth,
                 genreId,
                 popularity,
-                rolId,
+                rolId
             },
+            
         });
+        // console.log(newUser)
+        console.log('~ createUser ~ newUser:', newUser);
 
         // if (req.files && req.files.img) {
         //     if (Array.isArray(req.files.img)) {
@@ -115,7 +112,7 @@ export const createUser = async (req: Request, res: Response) => {
         //         data: newUser,
         //     });
     } catch (error: any) {
-        return res.status(400).send("Error creating user");
+        return res.status(400).send("Error creating user" + error.message);
     }
 };
 
@@ -140,7 +137,7 @@ export const updateUser = async (req: Request, res: Response) => {
     try {
         // const hashedPassword = await bcrypt.hash(password, 10);
 
-        const updatedUser = await prisma.user.update({
+        const updatedUser = await prisma.users.update({
             where: { id: userId },
             data: {
                 first_name,
@@ -171,7 +168,7 @@ export const updateUser = async (req: Request, res: Response) => {
         const  userId  = parseInt(req.params.userId);
     
         try {
-        const userDeleted = await prisma.user.delete({ where: { id: userId } });
+        const userDeleted = await prisma.users.delete({ where: { id: userId } });
     
         res
             .status(201)

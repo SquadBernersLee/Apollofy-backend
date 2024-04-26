@@ -5,7 +5,7 @@ export const getSearch = async (req: Request, res: Response) => {
   const { query } = req.query;
   console.log(req.query);
   try {
-    const allArtists = prisma.user.findMany({
+    const allArtists = prisma.users.findMany({
       where: {
         rolId: 1,
         OR: [

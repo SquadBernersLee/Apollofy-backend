@@ -22,9 +22,7 @@ app.use("/api", requestRoutes);
 app.use("/api/playlist", playlistRouter);   
 app.use("/api/track", tracksRouter);
 app.use("/api/track", likedTrackRouter);
-app.use("/api/track", myTracksRouter);                  
-// app.use("/api/password", passwordRouter); 
-// app.use("/api/artists", checkJwtMiddleware s, artistRouter );
+app.use("/api/track", myTracksRouter);
 app.use("/api/user", userRouter); 
 app.use("/api/search", searchRouter);
 
