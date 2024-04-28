@@ -5,6 +5,7 @@ import playlistRouter from "./routes/playlist.routes";
 import { tracksRouter } from "./routes/tracks.routes";
 import userRouter from "./routes/user.routes";
 import searchRouter from "./routes/search.routes";
+import albumRouter from "./routes/albums.routes";
 
 const cors = require("cors");
 
@@ -18,4 +19,5 @@ app.use("/api/playlist", playlistRouter);
 app.use("/api/track", tracksRouter);
 app.use("/api/user", userRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/album", albumRouter);
 export default app;
