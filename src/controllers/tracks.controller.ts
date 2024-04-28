@@ -1,6 +1,24 @@
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
 
+export const createTrack = async (req: Request, res: Response) => {
+  try {
+    const { name, url, genreId, albumId, thumbnail } = req.body;
+    const newTrack = await prisma.track.create({
+      data: {
+        name,
+        url,
+        genreId,
+        albumId,
+        thumbnail,
+      },
+    });
+    res.status(201).send(`Track created successfully`);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 export const getAllTracks = async (req: Request, res: Response) => {
   try {
     const allSongs = await prisma.track.findMany({});

@@ -1,6 +1,16 @@
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
 
+export const addAlbum = async (req: Request, res: Response) => {
+  try {
+    const { name, imageUrl } = req.body;
+    const newAlbum = await prisma.album.create({ data: { name, imageUrl } });
+    res.status(201).send({ msg: "Album added successfully", data: newAlbum });
+  } catch (error) {
+    res.status(400).send({ msg: "Error adding album", error });
+  }
+};
+
 export const getAllAlbums = async (req: Request, res: Response) => {
   try {
     const allUsers = await prisma.album.findMany();
