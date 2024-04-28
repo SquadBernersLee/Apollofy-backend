@@ -8,7 +8,7 @@ import { likedTrackRouter } from "./routes/likedTracks.routes";
 import { myTracksRouter } from "./routes/myTracks.routes";
 import userRouter from "./routes/user.routes";
 import searchRouter from  "./routes/search.routes";
-import cors from 'cors';         
+       
 import { urlencoded } from "body-parser";
 import fileUpload from "express-fileupload";               
 

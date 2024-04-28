@@ -18,10 +18,24 @@ export const getSearch = async (req: Request, res: Response) => {
       where: {
         name: { contains: query as string, mode: "insensitive" },
       },
+      include: {
+        ArtistTracks: {
+          include: {
+            User: true,
+          },
+        },
+      },
     });
     const allAlbums = prisma.album.findMany({
       where: {
         name: { contains: query as string, mode: "insensitive" },
+      },
+      include: {
+        AlbumArtist: {
+          include: {
+            Artist: true,
+          },
+        },
       },
     });
 
@@ -30,29 +44,29 @@ export const getSearch = async (req: Request, res: Response) => {
     const songs = allPromises[1];
     const albums = allPromises[2];
 
-    const artistsToSend = artists.map(
-      ({ id, first_name, last_name, img }) => ({
-        id,
-        first_name,
-        last_name,
-        img,
-      })
-    );
-    const songsToSend = songs.map(({ id, name, thumbnail }) => ({
+    const artistsToSend = artists.map(({ id, first_name, last_name, img }) => ({
+      id,
+      first_name,
+      last_name,
+      img,
+    }));
+    const songsToSend = songs.map(({ id, name, thumbnail, ArtistTracks }) => ({
       id,
       name,
       thumbnail,
+      artist: ArtistTracks[0]?.User.first_name,
     }));
-    const albumsToSend = albums.map(({ id, name, imageUrl }) => ({
+    const albumsToSend = albums.map(({ id, name, imageUrl, AlbumArtist }) => ({
       id,
       name,
       imageUrl,
+      artist: AlbumArtist[0].Artist.first_name,
     }));
-console.log({
-  artists: artistsToSend,
-  songs: songsToSend,
-  albums: albumsToSend,
-},)
+    console.log({
+      artists: artistsToSend,
+      songs: songsToSend,
+      albums: albumsToSend,
+    });
     res.status(201).send({
       msg: "Here is your information",
       data: {
@@ -72,23 +86,23 @@ console.log({
   }
 };
 
-// export const createSearch = async (req: Request, res: Response) => {
-//   const { search } = req.params;
+// export const getSearchArtist = async (req: Request, res: Response) => {
+//   const { id } = req.params;
 //   console.log(req.params);
-
 //   try {
-
-//     const newSearch = await prisma.create({
-//       data: { search },
-//       include: {
-//         Teack: true,
-//         Playlist: true,
-//         Album: true,
-//         User: true,
+//     const artist = prisma.artistTracks.findMany({
+//       where: {
+//         trackId: parseInt(id),
 //       },
 //     });
-//     res.status(201).send(newSearch);
+//     res.status(201).send({
+//       msg: "Here is your artist",
+//       data: {
+//         artist,
+//       },
+//       typeofArtists: typeof artist,
+//     });
 //   } catch (error) {
-//     res.status(400).send(error);
+//     res.status(400).send({ msg: "Error", error });
 //   }
 // };
