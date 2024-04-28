@@ -18,10 +18,24 @@ export const getSearch = async (req: Request, res: Response) => {
       where: {
         name: { contains: query as string, mode: "insensitive" },
       },
+      include: {
+        ArtistTracks: {
+          include: {
+            User: true,
+          },
+        },
+      },
     });
     const allAlbums = prisma.album.findMany({
       where: {
         name: { contains: query as string, mode: "insensitive" },
+      },
+      include: {
+        AlbumArtist: {
+          include: {
+            Artist: true,
+          },
+        },
       },
     });
 
@@ -36,17 +50,23 @@ export const getSearch = async (req: Request, res: Response) => {
       last_name,
       img,
     }));
-    const songsToSend = songs.map(({ id, name, thumbnail }) => ({
+    const songsToSend = songs.map(({ id, name, thumbnail, ArtistTracks }) => ({
       id,
       name,
       thumbnail,
+      artist: ArtistTracks[0]?.User.first_name,
     }));
-    const albumsToSend = albums.map(({ id, name, imageUrl }) => ({
+    const albumsToSend = albums.map(({ id, name, imageUrl, AlbumArtist }) => ({
       id,
       name,
       imageUrl,
+      artist: AlbumArtist[0].Artist.first_name,
     }));
-
+    console.log({
+      artists: artistsToSend,
+      songs: songsToSend,
+      albums: albumsToSend,
+    });
     res.status(201).send({
       msg: "Here is your information",
       data: {
@@ -65,24 +85,3 @@ export const getSearch = async (req: Request, res: Response) => {
     res.status(400).send({ msg: "Error", error });
   }
 };
-
-// export const createSearch = async (req: Request, res: Response) => {
-//   const { search } = req.params;
-//   console.log(req.params);
-
-//   try {
-
-//     const newSearch = await prisma.create({
-//       data: { search },
-//       include: {
-//         Teack: true,
-//         Playlist: true,
-//         Album: true,
-//         User: true,
-//       },
-//     });
-//     res.status(201).send(newSearch);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// };
