@@ -41,7 +41,7 @@ model users {
   img            String
   public_id_img  String?
   dateOfBirth    String
-  genreId        Int
+  genreId        Int?
   popularity     Float
   Roles          Roles?            @relation(fields: [rolId], references: [id])
   LikedTracks    LikedTracks[]

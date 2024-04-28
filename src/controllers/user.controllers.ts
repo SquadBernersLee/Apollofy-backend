@@ -42,9 +42,7 @@ export const createUser = async (req: Request, res: Response) => {
         !first_name ||
         !last_name ||
         !email ||
-        !gender ||
-        !img ||
-        !password
+        !password  
     ) {
         return res.status(400).send("Missing required fields");
     }
@@ -72,47 +70,17 @@ export const createUser = async (req: Request, res: Response) => {
                 city,
                 gender,
                 img,
-                // password: hashedPassword,
-                password,      
+                password,
                 country,
                 dateOfBirth,
                 genreId,
                 popularity,
-                rolId
+                rolId,
             },
-            
         });
-        // console.log(newUser)
-        console.log('~ createUser ~ newUser:', newUser);
-
-        // if (req.files && req.files.img) {
-        //     if (Array.isArray(req.files.img)) {
-        //         return res.status(400).json({
-        //             msg: 'You can only upload one file per user.',
-        //         });
-        //         } else {
-        //         const result = await uploadImageCloudinary(req.files.img); // Subir el archivo único
-        //         const newUserImg = await prisma.user.update({
-        //             where: { id: newUser.id },
-        //             data: {
-        //             img: result.secure_url,
-        //             public_id_img: result.public_id,
-        //             },
-        //         });
-        
-        //         await fs.unlink(req.files.img);
-        //         return res.status(201).send({
-        //             msg: 'New user created',
-        //             data: newUserImg,
-        //         });
-        //         }
-        // }
-        //     return res.status(201).send({
-        //         msg: 'New user created',
-        //         data: newUser,
-        //     });
+        console.log(newUser)
     } catch (error: any) {
-        return res.status(400).send("Error creating user" + error.message);
+        return res.status(400).send("Error creating user: " + error.message);
     }
 };
 
@@ -125,6 +93,7 @@ export const updateUser = async (req: Request, res: Response) => {
         city,
         gender,
         img,
+        public_id_img,
         password,
         country,
         dateOfBirth,
@@ -132,7 +101,6 @@ export const updateUser = async (req: Request, res: Response) => {
         popularity,
         rolId,
     } = req.body;
-    console.log(req.body)
         const  userId  = parseInt(req.params.userId);
     try {
         // const hashedPassword = await bcrypt.hash(password, 10);
@@ -148,6 +116,7 @@ export const updateUser = async (req: Request, res: Response) => {
                 city,
                 gender,
                 img,
+                public_id_img,
                 country,
                 dateOfBirth,
                 genreId,
@@ -160,7 +129,7 @@ export const updateUser = async (req: Request, res: Response) => {
             .status(201)
             .send({ msg: 'The user has been updated', data: updatedUser });
         } catch (error) {
-        res.status(400).send({ msg: "ERROR" });
+        res.status(400).send({ msg: 'ERROR' });
         }
     };
     
