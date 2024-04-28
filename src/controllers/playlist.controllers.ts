@@ -173,6 +173,18 @@ export const createPlaylist = async (req: Request, res: Response) => {
         User: { connect: { id: userId } },
       },
     });
+
+    // Retrieve the ID of the newly created playlist
+    const playlistId = newPlaylist.id;
+
+    // Create a new entry in the FollowPlaylist table
+    const followedPlaylist = await prisma.followPlaylist.create({
+      data: {
+        PlaylistId: playlistId,
+        UserId: 3, // Assuming the user ID is 3
+      },
+    });
+
     res.status(201).send(newPlaylist);
   } catch (error: any) {
     res.status(400).send("Error creating playlist: " + error.message);
