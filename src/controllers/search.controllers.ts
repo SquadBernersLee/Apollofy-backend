@@ -6,6 +6,7 @@ export const getSearch = async (req: Request, res: Response) => {
   console.log(req.query);
   try {
     const allArtists = prisma.users.findMany({
+    const allArtists = prisma.users.findMany({
       where: {
         rolId: 1,
         OR: [
@@ -24,6 +25,7 @@ export const getSearch = async (req: Request, res: Response) => {
         name: { contains: query as string, mode: "insensitive" },
       },
     });
+
 
     const allPromises = await Promise.all([allArtists, allSongs, allAlbums]);
     const artists = allPromises[0];

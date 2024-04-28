@@ -1,11 +1,11 @@
-require('dotenv').config();
+require("dotenv").config();
 
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken'
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { Prisma } from "@prisma/client";
-import fs from 'fs-extra';
+import fs from "fs-extra";
 
 // import {
 //     uploadImageCloudinary,
@@ -13,170 +13,161 @@ import fs from 'fs-extra';
 // } from '../../Utils/cloudinary';
 
 export const getAllUsers = async (req: Request, res: Response) => {
-    try {
-        const allUsers = await prisma.users.findMany();
-        res.status(201).send({ msg: "Here are all your users", data: allUsers });
-    } catch (error) {
-        res.status(400).send({ msg: "Error", error });
-    }
+  try {
+    const allUsers = await prisma.users.findMany();
+    res.status(201).send({ msg: "Here are all your users", data: allUsers });
+  } catch (error) {
+    res.status(400).send({ msg: "Error", error });
+  }
 };
 
 export const createUser = async (req: Request, res: Response) => {
-    const {
+  const {
+    first_name,
+    last_name,
+    email,
+    city,
+    gender,
+    img,
+    password,
+    country,
+    dateOfBirth,
+    genreId,
+    popularity,
+    rolId,
+  } = req.body;
+  console.log(req.body);
+
+  if (!first_name || !last_name || !email || !gender || !img || !password) {
+    return res.status(400).send("Missing required fields");
+  }
+
+  try {
+    const existingUser = await prisma.users.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (existingUser) {
+      return res.sendStatus(409);
+    }
+
+    // Hash de la contraseña
+    // const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Crear usuario
+    const newUser = await prisma.users.create({
+      data: {
         first_name,
         last_name,
         email,
         city,
         gender,
         img,
+        // password: hashedPassword,
         password,
         country,
         dateOfBirth,
         genreId,
         popularity,
         rolId,
-    } = req.body;
-    console.log(req.body)
+      },
+    });
+    // console.log(newUser)
+    console.log("~ createUser ~ newUser:", newUser);
 
-    if (
-        !first_name ||
-        !last_name ||
-        !email ||
-        !gender ||
-        !img ||
-        !password
-    ) {
-        return res.status(400).send("Missing required fields");
-    }
+    // if (req.files && req.files.img) {
+    //     if (Array.isArray(req.files.img)) {
+    //         return res.status(400).json({
+    //             msg: 'You can only upload one file per user.',
+    //         });
+    //         } else {
+    //         const result = await uploadImageCloudinary(req.files.img); // Subir el archivo único
+    //         const newUserImg = await prisma.user.update({
+    //             where: { id: newUser.id },
+    //             data: {
+    //             img: result.secure_url,
+    //             public_id_img: result.public_id,
+    //             },
+    //         });
 
-    try {
-        const existingUser = await prisma.users.findFirst({
-            where: {
-                email: email,
-            },
-        });
-
-        if (existingUser) {
-            return res.sendStatus(409);
-        }
-
-        // Hash de la contraseña
-        // const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Crear usuario
-        const newUser = await prisma.users.create({
-            data: {
-                first_name,
-                last_name,
-                email,
-                city,
-                gender,
-                img,
-                // password: hashedPassword,
-                password,      
-                country,
-                dateOfBirth,
-                genreId,
-                popularity,
-                rolId
-            },
-            
-        });
-        // console.log(newUser)
-        console.log('~ createUser ~ newUser:', newUser);
-
-        // if (req.files && req.files.img) {
-        //     if (Array.isArray(req.files.img)) {
-        //         return res.status(400).json({
-        //             msg: 'You can only upload one file per user.',
-        //         });
-        //         } else {
-        //         const result = await uploadImageCloudinary(req.files.img); // Subir el archivo único
-        //         const newUserImg = await prisma.user.update({
-        //             where: { id: newUser.id },
-        //             data: {
-        //             img: result.secure_url,
-        //             public_id_img: result.public_id,
-        //             },
-        //         });
-        
-        //         await fs.unlink(req.files.img);
-        //         return res.status(201).send({
-        //             msg: 'New user created',
-        //             data: newUserImg,
-        //         });
-        //         }
-        // }
-        //     return res.status(201).send({
-        //         msg: 'New user created',
-        //         data: newUser,
-        //     });
-    } catch (error: any) {
-        return res.status(400).send("Error creating user" + error.message);
-    }
+    //         await fs.unlink(req.files.img);
+    //         return res.status(201).send({
+    //             msg: 'New user created',
+    //             data: newUserImg,
+    //         });
+    //         }
+    // }
+    //     return res.status(201).send({
+    //         msg: 'New user created',
+    //         data: newUser,
+    //     });
+  } catch (error: any) {
+    return res.status(400).send("Error creating user" + error.message);
+  }
 };
 
-
 export const updateUser = async (req: Request, res: Response) => {
-    const {
+  const {
+    first_name,
+    last_name,
+    email,
+    city,
+    gender,
+    img,
+    password,
+    country,
+    dateOfBirth,
+    genreId,
+    popularity,
+    rolId,
+  } = req.body;
+  console.log(req.body);
+  const userId = parseInt(req.params.userId);
+  try {
+    // const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = await prisma.users.update({
+      where: { id: userId },
+      data: {
         first_name,
-        last_name,
         email,
+        // password: hashedPassword,
+        password,
+        last_name,
         city,
         gender,
         img,
-        password,
         country,
         dateOfBirth,
         genreId,
         popularity,
         rolId,
-    } = req.body;
-    console.log(req.body)
-        const  userId  = parseInt(req.params.userId);
-    try {
-        // const hashedPassword = await bcrypt.hash(password, 10);
+      },
+    });
 
-        const updatedUser = await prisma.users.update({
-            where: { id: userId },
-            data: {
-                first_name,
-                email,
-                // password: hashedPassword,
-                password,
-                last_name,
-                city,
-                gender,
-                img,
-                country,
-                dateOfBirth,
-                genreId,
-                popularity,
-                rolId,
-                },
-        });
-    
-        res
-            .status(201)
-            .send({ msg: 'The user has been updated', data: updatedUser });
-        } catch (error) {
-        res.status(400).send({ msg: "ERROR" });
-        }
-    };
-    
-    export const deleteUser = async (req: Request, res: Response) => {
-        const  userId  = parseInt(req.params.userId);
-    
-        try {
-        const userDeleted = await prisma.users.delete({ where: { id: userId } });
-    
-        res
-            .status(201)
-            .send({ msg: 'User has been deleted successfully', data: userDeleted });
-        } catch (error) {
-        res.status(400).send({ msg: 'ERROR' });
-        }
-    };
+    res
+      .status(201)
+      .send({ msg: "The user has been updated", data: updatedUser });
+  } catch (error) {
+    res.status(400).send({ msg: "ERROR" });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const userDeleted = await prisma.users.delete({ where: { id: userId } });
+
+    res
+      .status(201)
+      .send({ msg: "User has been deleted successfully", data: userDeleted });
+  } catch (error) {
+    res.status(400).send({ msg: "ERROR" });
+  }
+};
 
 // export const handleLogin = async (req, res) => {
 //     const { first_name, password } = req.body;
@@ -188,8 +179,8 @@ export const updateUser = async (req: Request, res: Response) => {
 
 //     try {
 //         const foundUser = await prisma.user.findFirst({
-//         where: { 
-//             first_name: first_name 
+//         where: {
+//             first_name: first_name
 //         },
 //         });
 //         if (!foundUser) return res.sendStatus(401); //Unauthorized
@@ -240,7 +231,7 @@ export const updateUser = async (req: Request, res: Response) => {
 //         const user = await prisma.user.findUnique({
 //         where: { id: verifiedToken.userId },
 //         });
-        
+
 //         if (!user || user.refreshToken !== token) return res.sendStatus(403);
 
 //         const accessToken = jwt.sign(
@@ -275,7 +266,7 @@ export const updateUser = async (req: Request, res: Response) => {
 //         if (!user || user.refreshToken !== token) return res.sendStatus(403);
 
 //         const refreshToken = jwt.sign(
-//             { userId: user.id },    
+//             { userId: user.id },
 //             process.env.REFRESH_TOKEN_SECRET,
 //             { expiresIn: '1m' }
 //             );
@@ -293,4 +284,3 @@ export const updateUser = async (req: Request, res: Response) => {
 //         res.sendStatus(500);
 //     }
 // };
-

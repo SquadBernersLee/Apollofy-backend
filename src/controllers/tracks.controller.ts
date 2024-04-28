@@ -1,6 +1,24 @@
 import { Request, Response } from "express";
 import prisma from "../db/prismaClient";
 
+export const createTrack = async (req: Request, res: Response) => {
+  try {
+    const { name, url, genreId, albumId, thumbnail } = req.body;
+    const newTrack = await prisma.track.create({
+      data: {
+        name,
+        url,
+        genreId,
+        albumId,
+        thumbnail,
+      },
+    });
+    res.status(201).send(`Track created successfully`);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 export const getAllTracks = async (req: Request, res: Response) => {
   try {
     const allSongs = await prisma.track.findMany();
@@ -10,47 +28,46 @@ export const getAllTracks = async (req: Request, res: Response) => {
   }
 };
 
-export const createTracks = async (req: Request, res: Response) => {
-  const {name, url, genreId, albumId, thumbnail } = req.body;
-  const UserId = parseInt(req.params.userId)
-console.log(req.body)
-  try {
-      const newTrack = await prisma.track.create({
-          data:{ name, url, genreId, albumId, thumbnail}
-      })
-      const newArtistTrack = await prisma.artistTracks.create({
-        data: { UserId, trackId: newTrack.id }
-      })
-      res.status(200).send(newTrack)
-  } catch (error) {
-      res.status(400).send(error)
-  }
-  
-}
+export const getAllLikedTracks = async (req: Request, res: Response) => {
+  const UserId = parseInt(req.params.UserId);
 
-export const trackUpdated = async(req: Request, res: Response) => {
-  const {name, url, genreId, albumId, thumbnail } = req.body;
-  const userId = parseInt(req.params.userId);
   try {
-      const updatedTrack = await prisma.track.update({
-          where: {id:userId},
-          data: {name, url, genreId, albumId, thumbnail}
-      })
-      res.status(200).send(updatedTrack)
+    const allSongs = await prisma.likedTracks.findMany({
+      where: {
+        UserId: UserId,
+      },
+      include: {
+        Track: true, // Include the related Track model
+      },
+    });
+
+    // Extracting relevant data from each object in the allSongs array
+    const formattedSongs = allSongs.map((song) => ({
+      id: song.Track.id,
+      name: song.Track.name,
+      url: song.Track.url,
+      genreId: song.Track.genreId,
+      albumId: song.Track.albumId,
+      thumbnail: song.Track.thumbnail,
+    }));
+
+    res.status(200).send(formattedSongs);
   } catch (error) {
-      res.status(400).send(error)
+    res.status(400).send(error);
   }
 };
 
-export const deleteTrack = async (req: Request, res: Response) => {
-  const  userId  = parseInt(req.params.userId);
-
+export const likeTrack = async (req: Request, res: Response) => {
   try {
-      const trackDeleted = await prisma.track.delete({ 
-      where: { id: userId}
-      })
-      res.status(200).send(trackDeleted)
+    const { userid, trackid } = req.body;
+    await prisma.likedTracks.create({
+      data: {
+        UserId: userid,
+        trackId: trackid,
+      },
+    });
+    res.status(201).send(`Track liked successfully`);
   } catch (error) {
-      res.status(400).send(error)
+    res.status(400).send(error);
   }
 };
