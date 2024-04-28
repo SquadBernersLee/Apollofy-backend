@@ -8,7 +8,7 @@ import { myTracksRouter } from "./routes/myTracks.routes";
 import userRouter from "./routes/user.routes";
 import searchRouter from "./routes/search.routes";
 import albumRouter from "./routes/albums.routes";
-
+const cors = require("cors");
 const app = express();
 app.use(cors());
 
