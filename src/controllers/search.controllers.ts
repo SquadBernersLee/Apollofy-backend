@@ -86,23 +86,3 @@ export const getSearch = async (req: Request, res: Response) => {
   }
 };
 
-// export const getSearchArtist = async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   console.log(req.params);
-//   try {
-//     const artist = prisma.artistTracks.findMany({
-//       where: {
-//         trackId: parseInt(id),
-//       },
-//     });
-//     res.status(201).send({
-//       msg: "Here is your artist",
-//       data: {
-//         artist,
-//       },
-//       typeofArtists: typeof artist,
-//     });
-//   } catch (error) {
-//     res.status(400).send({ msg: "Error", error });
-//   }
-// };
