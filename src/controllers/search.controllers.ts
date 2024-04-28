@@ -14,9 +14,36 @@ export const getSearch = async (req: Request, res: Response) => {
         ],
       },
     });
-    const allSongs = prisma.track.findMany({
+    const allSongs = await prisma.track.findMany({
       where: {
-        name: { contains: query as string, mode: "insensitive" },
+        OR: [
+          {
+            name: {
+              contains: query as string,
+              mode: "insensitive",
+            },
+          },
+          {
+            Album: {
+              name: {
+                contains: query as string,
+                mode: "insensitive",
+              },
+            },
+          },
+          {
+            ArtistTracks: {
+              some: {
+                User: {
+                  first_name: {
+                    contains: query as string,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       include: {
         ArtistTracks: {
@@ -26,9 +53,28 @@ export const getSearch = async (req: Request, res: Response) => {
         },
       },
     });
-    const allAlbums = prisma.album.findMany({
+    const allAlbums = await prisma.album.findMany({
       where: {
-        name: { contains: query as string, mode: "insensitive" },
+        OR: [
+          {
+            name: {
+              contains: query as string,
+              mode: "insensitive",
+            },
+          },
+          {
+            AlbumArtist: {
+              some: {
+                Artist: {
+                  first_name: {
+                    contains: query as string,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       include: {
         AlbumArtist: {
