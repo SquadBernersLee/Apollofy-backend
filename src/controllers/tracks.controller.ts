@@ -71,3 +71,31 @@ export const likeTrack = async (req: Request, res: Response) => {
     res.status(400).send(error);
   }
 };
+
+export const deleteTrack = async (req: Request, res: Response) => {
+  const trackId = parseInt(req.params.trackId);
+
+  try {
+    // Check if the track exists
+    const existingTrack = await prisma.track.findUnique({
+      where: {
+        id: trackId,
+      },
+    });
+
+    if (!existingTrack) {
+      return res.status(404).send("Track not found");
+    }
+
+    // Delete the track
+    await prisma.track.delete({
+      where: {
+        id: trackId,
+      },
+    });
+
+    res.status(200).send("Track deleted successfully");
+  } catch (error) {
+    res.status(500).send("Error deleting track");
+  }
+};

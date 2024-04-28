@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createTrack,
+  deleteTrack,
   getAllLikedTracks,
   getAllTracks,
   likeTrack,
@@ -14,4 +15,6 @@ tracksRouter.post("/likeTrack", likeTrack);
 
 tracksRouter.get("/likeTrack/:UserId", getAllLikedTracks);
 
-tracksRouter.post("/", createTrack);
+tracksRouter.delete("/", deleteTrack);
+
+tracksRouter.post("/:trackId", createTrack);
