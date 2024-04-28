@@ -14,7 +14,6 @@ export const followUnfollow = async (req: Request, res: Response) => {
     });
 
     if (existingFollow) {
-      // If the user is already following the playlist, delete the follow
       await prisma.followPlaylist.delete({
         where: {
           id: existingFollow.id,
@@ -22,7 +21,6 @@ export const followUnfollow = async (req: Request, res: Response) => {
       });
       res.status(200).send("Unfollowed playlist successfully");
     } else {
-      // If the user is not following the playlist, create a new follow
       const followPlaylist = await prisma.followPlaylist.create({
         data: {
           UserId: userId,
@@ -81,10 +79,9 @@ export const getPlaylistById = async (req: Request, res: Response) => {
 };
 
 export const getSongsByPlaylistId = async (req: Request, res: Response) => {
-  const id = parseInt(req.params.id); // Assuming the playlist ID is passed as a route parameter
+  const id = parseInt(req.params.id);
 
   try {
-    // Query the PlaylistTracks table to get the track IDs of the playlist
     const playlistTracks = await prisma.playlistTracks.findMany({
       where: {
         playlistId: id,
@@ -94,12 +91,10 @@ export const getSongsByPlaylistId = async (req: Request, res: Response) => {
       },
     });
 
-    // Extract track IDs from the result
     const trackIds = playlistTracks.map(
       (playlistTrack) => playlistTrack.trackId
     );
 
-    // Query the Track table to get the details of the tracks
     const tracks = await prisma.track.findMany({
       where: {
         id: {
@@ -120,10 +115,9 @@ export const getFollowedPlaylistsByUserId = async (
   req: Request,
   res: Response
 ) => {
-  const userId = parseInt(req.params.userId); // Assuming the user ID is passed as a route parameter
+  const userId = parseInt(req.params.userId);
 
   try {
-    // Query the FollowPlaylist table to get the followed playlists IDs of the user
     const followedPlaylists = await prisma.followPlaylist.findMany({
       where: {
         UserId: userId,
@@ -133,12 +127,10 @@ export const getFollowedPlaylistsByUserId = async (
       },
     });
 
-    // Extract playlist IDs from the result
     const playlistIds = followedPlaylists.map(
       (followedPlaylist) => followedPlaylist.PlaylistId
     );
 
-    // Query the Playlist table to get the details of the followed playlists
     const playlists = await prisma.playlist.findMany({
       where: {
         id: {

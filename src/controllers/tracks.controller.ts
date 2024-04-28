@@ -37,11 +37,11 @@ export const getAllLikedTracks = async (req: Request, res: Response) => {
         UserId: UserId,
       },
       include: {
-        Track: true, // Include the related Track model
+        Track: true,
       },
     });
 
-    // Extracting relevant data from each object in the allSongs array
+  
     const formattedSongs = allSongs.map((song) => ({
       id: song.Track.id,
       name: song.Track.name,

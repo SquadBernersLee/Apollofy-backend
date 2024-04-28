@@ -14,18 +14,6 @@ export const getAllLikedTracks = async (req: Request, res: Response) => {
     }
 }
 
-// export const createTrackLiked = async (req: Request, res: Response) => {
-//     const {name, url, genreId, albumId, thumbnail} = req.body;
-//     try {
-//         const newLikedTrack = await prisma.track.create({
-//             data:{ name, url, genreId, albumId, thumbnail}
-//         })
-//         res.status(200).send(newLikedTrack)
-//     } catch (error) {
-//         res.status(400).send(error)
-//     }
-// }
-
 export const createTrackLiked = async (req: Request, res: Response) => {
     const {UserId,trackId} = req.body;
 
