@@ -76,7 +76,6 @@ export const deleteTrack = async (req: Request, res: Response) => {
   const trackId = parseInt(req.params.trackId);
 
   try {
-    // Check if the track exists
     const existingTrack = await prisma.track.findUnique({
       where: {
         id: trackId,
@@ -87,7 +86,6 @@ export const deleteTrack = async (req: Request, res: Response) => {
       return res.status(404).send("Track not found");
     }
 
-    // Delete the track
     await prisma.track.delete({
       where: {
         id: trackId,

@@ -1,27 +1,4 @@
-// import { v2 as cloudinary } from 'cloudinary';
-// import config from '../src/config/config';
 
-// export const uploadImageCloudinary = async (filepath: string) => {
-//     return await cloudinary.uploader.upload(filepath, { folder: 'apollofy' });
-// };
-
-// export const uploadAudioCloudinary = async (filepath: string) => {
-//     return await cloudinary.uploader.upload(filepath, {
-//         folder: 'apollofy',
-//         resource_type: 'video',
-//         format: 'mp3',
-//     });
-// };
-
-// export const deleteImageCloudinary = async (publicId: string) => {
-//     return await cloudinary.uploader.destroy(publicId);
-// };
-
-// export const deleteAudioCloudinary = async (publicId: string) => {
-//     return await cloudinary.uploader.destroy(publicId, {
-//         resource_type: 'video',
-//     });
-// };
 
 import cloudinary from "../src/services/cloudinary/cloudinary.services";
 

@@ -174,14 +174,12 @@ export const createPlaylist = async (req: Request, res: Response) => {
       },
     });
 
-    // Retrieve the ID of the newly created playlist
     const playlistId = newPlaylist.id;
 
-    // Create a new entry in the FollowPlaylist table
     const followedPlaylist = await prisma.followPlaylist.create({
       data: {
         PlaylistId: playlistId,
-        UserId: 3, // Assuming the user ID is 3
+        UserId: 3,
       },
     });
 
