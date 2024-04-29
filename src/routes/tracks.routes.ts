@@ -17,4 +17,4 @@ tracksRouter.get("/likeTrack/:UserId", getAllLikedTracks);
 
 tracksRouter.delete("/", deleteTrack);
 
-tracksRouter.post("/:trackId", createTrack);
+tracksRouter.post("/", createTrack);
