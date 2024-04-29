@@ -9,7 +9,7 @@ export const addAlbum = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(400).send({ msg: "Error adding album", error });
   }
-};
+}; 
 
 export const getAllAlbums = async (req: Request, res: Response) => {
   try {
