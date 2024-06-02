@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 
 type Tconfig = {
   [key: string]: Environmentconfig;
-  // cloudinary_cloud_name: string | number
 };
 
 type Environmentconfig = {
