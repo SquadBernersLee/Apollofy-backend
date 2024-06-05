@@ -214,21 +214,38 @@ export const updatePlaylist = async (req: Request, res: Response) => {
     res.status(400).send("Error updating playlist: " + error.message);
   }
 };
-
 export const deletePlaylist = async (req: Request, res: Response) => {
   const playlistId = parseInt(req.params.id);
   try {
-    const deletedPlaylist = await prisma.playlist.delete({
+    // Find the playlist and include related FollowPlaylist entries
+    const playlist = await prisma.playlist.findUnique({
       where: { id: playlistId },
+      include: {
+        FollowPlaylist: true
+      }
     });
 
-    if (!deletedPlaylist) {
+    if (!playlist) {
       return res.status(404).send("Playlist not found");
     }
 
-    res.status(204).send("User deleted successfully");
+    // If there are associated FollowPlaylist entries, delete them first
+    if (playlist.FollowPlaylist && playlist.FollowPlaylist.length > 0) {
+      for (const follow of playlist.FollowPlaylist) {
+        await prisma.followPlaylist.delete({
+          where: { id: follow.id }
+        });
+      }
+    }
+
+    // After deleting associated FollowPlaylist entries, delete the playlist itself
+    await prisma.playlist.delete({
+      where: { id: playlistId }
+    });
+
+    res.status(204).send("Playlist deleted successfully");
   } catch (error: any) {
-    res.status(400).send("Error deleting user: " + error.message);
+    res.status(400).send("Error deleting playlist: " + error.message);
   }
 };
 
