@@ -52,7 +52,6 @@ describe("DELETE / playlists/:id", () => {
     const responseDelete = await request(app)
       .delete(`/api/playlist/${createdPlaylistId}`)
       .send();
-      console.log(responseDelete);
     expect(responseDelete.status).toBe(204);
   });
 });
